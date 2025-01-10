@@ -1,8 +1,7 @@
 import React from "react";
 import "./App.css";
 
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -14,7 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import CheckIcon from "@mui/icons-material/Check";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Snackbar } from "@mui/material";
 
 export default function AppMui() {
   useEffect(() => {
@@ -24,6 +23,7 @@ export default function AppMui() {
       link.href = "images/icons8-リンゴの健康-120.png";
     }
   }, []);
+
   return (
     <div className="bg-gray-50">
       <Header />
@@ -40,9 +40,8 @@ export default function AppMui() {
       { label: "機能一覧", link: "#function" },
       { label: "お問い合わせ", link: "#contact" },
     ];
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-      null
-    );
+    const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
       setAnchorElNav(event.currentTarget);
     };
@@ -52,18 +51,9 @@ export default function AppMui() {
 
     return (
       <header>
-        {/* お問い合わせ送信後のメッセージ */}
-        {/* <Snackbar
-          open={openSnackbar}
-          onClose={() => setOpenSnackbar(false)}
-          message={snackbarMessage}
-          autoHideDuration={3000}
-        /> */}
-
         <AppBar color="success">
           <Container>
             <Toolbar disableGutters>
-              {/* スマホ用ロゴ */}
               <Typography
                 variant="h6"
                 component="a"
@@ -71,7 +61,7 @@ export default function AppMui() {
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },
-                  fontFamily: "monospace",
+                  fontFamily: "Roboto",
                   fontWeight: 700,
                   letterSpacing: ".3rem",
                   color: "inherit",
@@ -81,11 +71,10 @@ export default function AppMui() {
                 オフィス保健室
               </Typography>
 
-              {/* ハンバーガー */}
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="large"
-                  aria-label="account of current user"
+                  aria-label="menu"
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
                   onClick={handleOpenNavMenu}
@@ -116,11 +105,9 @@ export default function AppMui() {
                         href={page.link}
                         sx={{
                           textAlign: "center",
-                          ":hover": { color: "black" },
-                          ":clicked": { color: "black" },
                           color: "black",
-                          my: 2,
-                          display: "block",
+                          textDecoration: "none",
+                          ":hover": { color: "blue" },
                         }}
                       >
                         {page.label}
@@ -130,7 +117,6 @@ export default function AppMui() {
                 </Menu>
               </Box>
 
-              {/* パソコン用ロゴ */}
               <Typography
                 variant="h5"
                 component="a"
@@ -139,7 +125,7 @@ export default function AppMui() {
                   mr: 2,
                   display: { xs: "flex", md: "none" },
                   flexGrow: 1,
-                  fontFamily: "monospace",
+                  fontFamily: "Roboto",
                   fontWeight: 700,
                   letterSpacing: ".3rem",
                   color: "inherit",
@@ -148,6 +134,7 @@ export default function AppMui() {
               >
                 オフィス保健室
               </Typography>
+
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 {pages.map((page) => (
                   <Button
@@ -156,11 +143,9 @@ export default function AppMui() {
                     href={page.link}
                     onClick={handleCloseNavMenu}
                     sx={{
-                      ":hover": { color: "white" },
-                      ":clicked": { color: "white" },
                       color: "white",
-                      my: 2,
-                      display: "block",
+                      textDecoration: "none",
+                      ":hover": { color: "yellow" },
                     }}
                   >
                     {page.label}
@@ -170,8 +155,8 @@ export default function AppMui() {
             </Toolbar>
           </Container>
         </AppBar>
-        <div className="heroImage w-screen mt-24 pb-32 md:pb-60">
-          <img src="images/topHeight.jpg" className="w-full" />
+        <div className="heroImage mt-20 pb-32 md:pb-60">
+          <img src="images/topHeight.jpg" className="w-full" alt="Hero" />
         </div>
       </header>
     );
@@ -179,47 +164,49 @@ export default function AppMui() {
 
   function Feature() {
     return (
-      <div className="pb-32 md:pb-60" id="feature">
-        <div className="mx-auto px-6 max-w-2xl lg:max-w-7xl lg:px-8">
-          <p className="mx-auto mt-2 max-w-lg text-balance text-center text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl">
+      <section className="pb-32 md:pb-60" id="feature">
+        <Container>
+          <Typography
+            variant="h4"
+            align="center"
+            color="textPrimary"
+            gutterBottom
+            sx={{ marginBottom: 10 }}
+          >
             オフィス保健室でできること
-          </p>
-
-          <div className="mx-auto overflow-hidden grid py-12 py-sm-8 max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-            <div className="lg:pr-8 lg:pt-4">
-              <div className="lg:max-w-lg">
-                <p className="mt-2 text-pretty text-2xl font-semibold tracking-tight text-gray-900">
-                  健康データの一元管理で大幅な工数削減
-                </p>
-              </div>
-            </div>
-            <div className="w-full">
+          </Typography>
+          <Box display="flex" flexWrap="wrap" justifyContent="center" gap={4}>
+            <Box maxWidth={500}>
+              <Typography
+                variant="h5"
+                color="textSecondary"
+                sx={{ marginBottom: 4 }}
+              >
+                健康データの一元管理で大幅な工数削減
+              </Typography>
               <img
-                alt="Product screenshot"
+                alt="Health data management"
                 src="images/graph.jpg"
-                className="w-full max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 md:-ml-4 lg:-ml-0"
+                style={{ width: "100%", borderRadius: "8px" }}
               />
-            </div>
-          </div>
-
-          <div className="mx-auto overflow-hidden pt-sm-8 pt-12 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-            <div className="sm:order-last lg:pr-8 lg:pt-4">
-              <div className="lg:max-w-lg">
-                <p className="mt-2 text-pretty text-2xl font-semibold tracking-tight text-gray-900">
-                  多彩な分析を、誰でも簡単に
-                </p>
-              </div>
-            </div>
-            <div className="w-full">
+            </Box>
+            <Box maxWidth={500}>
+              <Typography
+                variant="h5"
+                color="textSecondary"
+                sx={{ marginBottom: 4 }}
+              >
+                多彩な分析を、誰でも簡単に
+              </Typography>
               <img
-                alt="Product screenshot"
+                alt="Analysis made easy"
                 src="images/healthconsult.jpg"
-                className="w-full max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 md:-ml-4 lg:-ml-0"
+                style={{ width: "100%", borderRadius: "8px" }}
               />
-            </div>
-          </div>
-        </div>
-      </div>
+            </Box>
+          </Box>
+        </Container>
+      </section>
     );
   }
 
@@ -233,7 +220,6 @@ export default function AppMui() {
           "該当者へ受診勧奨の連絡",
           "紙の健診結果のデータ化代行",
         ],
-        featured: false,
       },
       {
         id: "ストレスチェック業務",
@@ -245,54 +231,61 @@ export default function AppMui() {
           "就業判定の管理",
           "集団分析",
         ],
-        featured: false,
       },
       {
         id: "その他",
         features: ["こころとからだの相談窓口", "多言語対応"],
-        featured: false,
       },
     ];
     return (
-      <div className="z-0 isolate px-6 pb-32 md:pb-60 lg:px-8" id="function">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-base/7 font-semibold text-indigo-600">
-            人事労務ご担当者様を支える
-          </h2>
-          <p className="mt-2 text-balance text-4xl font-semibold tracking-tight text-gray-900">
+      <section className="pb-32 md:pb-60" id="function">
+        <Container>
+          <Typography
+            variant="h4"
+            align="center"
+            color="textPrimary"
+            gutterBottom
+            sx={{ marginBottom: 10 }}
+          >
             オフィス保健室の機能
-          </p>
-        </div>
-
-        <div className="mx-auto mt-16 grid max-w-lg grid-cols-1 gap-y-6 sm:mt-20 sm:gap-y-0 gap-x-7 lg:max-w-5xl lg:grid-cols-3">
-          {tiers.map((tier) => (
-            <div
-              key={tier.id}
-              className="bg-white/60 sm:mx-8 lg:mx-0 rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-7 pb-10"
-            >
-              <p className="mt-4 flex items-baseline gap-x-2">
-                <span className="text-gray-900 text-3xl font-semibold tracking-tight">
-                  {tier.id}
-                </span>
-              </p>
-              <ul
-                role="list"
-                className="text-gray-600 mt-8 space-y-3 text-sm/6 sm:mt-10"
+          </Typography>
+          <Box display="flex" flexWrap="wrap" justifyContent="center" gap={4}>
+            {tiers.map((tier) => (
+              <Box
+                key={tier.id}
+                border={1}
+                borderColor="grey.300"
+                borderRadius={2}
+                p={3}
+                bgcolor="white"
+                sx={{
+                  maxWidth: 300,
+                  width: "100%",
+                  "@media (max-width:600px)": { width: "90%" }, // スマホで幅を統一
+                }}
               >
-                {tier.features.map((feature) => (
-                  <li key={feature} className="flex gap-x-3">
-                    <CheckIcon
-                      aria-hidden="true"
-                      className="text-indigo-600 h-6 w-5 flex-none"
-                    />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </div>
+                <Typography variant="h6" color="textPrimary" gutterBottom>
+                  {tier.id}
+                </Typography>
+                <ul>
+                  {tier.features.map((feature) => (
+                    <li
+                      key={feature}
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <CheckIcon
+                        color="success"
+                        style={{ marginRight: "8px" }}
+                      />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </Box>
+            ))}
+          </Box>
+        </Container>
+      </section>
     );
   }
 
@@ -310,7 +303,7 @@ export default function AppMui() {
         </div>
 
         <div
-          className="mx-auto p-12 rounded-md shadow-md sm:w-2/3 xs:w-full"
+          className="mx-auto p-12 rounded-md sm:w-2/3 xs:w-full"
           id="contact"
         >
           <h2 className="text-center text-2xl font-semibold text-gray-900 mb-4">
@@ -325,7 +318,7 @@ export default function AppMui() {
             <input
               type="hidden"
               name="subject"
-              value="ホームページよりお問い合わせ_test"
+              value="ホームページよりお問い合わせ"
             />
             <TextField type="text" name="honeypot" sx={{ display: "none" }} />
             <TextField
